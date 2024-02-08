@@ -60,26 +60,28 @@
         <dt>Descriptive Item Title</dt>
         <dd>Descriptive Item Text</dd>
     </dl>
+    <ol>
+        <li>Missing <!DOCTYPE html></li>
+        <li>language="en" was in wrong place, should be enclosed in first html tag</li>
+        <li>Missing the closing head tag which i added to line 6</li>
+        <li>Missing the closing </h1> tag on line 8</li>
+        <li>added a <p> to line ten because it was missing </li>
+        <li>Changes ol to ul for the list on line 12</li>
+        <li> Added a closing </p> tag to line 25</li>
+        <li>Added an alt to image on line 27</li>
+        <li>added a closing </a> tag to line 29 and deleted the img tag</li>
+        <li>missing p tags on line 29 so i added them</li>
+        <li>missing a / in a closing tag on line 38</li>
+        <li>never added a </table> on line 44</li>
+        <li>changes source= to src= on line 45</li>
+        <li>changed pgsource to p style on line 47 for text center</li>
+        <li>changed p bgcolor to p style on line 49 for background color</li>
+        <li>changed input type to button type on line 51</li>
+        <li>closed comment on line 53</li>
+        <li>closed a tag on line 55</li>
+        <li>changed em to u on line 57, moved closing u tag before the closing p tag on line 57</li>
+        <li>changed line 60 tags to dt </li>
+        <li>changed line 61 tags to dl</li>
+    </ol>
 </body>
 </html>
-<!--1. Missing <!DOCTYPE html>
-    2. language="en" was in wrong place, should be enclosed in first html tag
-    3. Missing the closing head tag which i added to line 6
-    4. Missing the closing </h1> tag on line 8
-    5. added a <p> to line ten because it was missing 
-    6. Changes ol to ul for the list on line 12
-    7. Added a closing </p> tag to line 25
-    8. Added an alt to image on line 27
-    9. added a closing </a> tag to line 29 and deleted the img tag
-    10.missing p tags on line 29 so i added them
-    11.missing a / in a closing tag on line 38
-    12.never added a </table> on line 44
-    13.changes source= to src= on line 45
-    14.changed pgsource to p style on line 47 for text center
-    15.changed p bgcolor to p style on line 49 for background color
-    16.changed input type to button type on line 51
-    17.closed comment on line 53
-    18.closed a tag on line 55
-    19.changed em to u on line 57, moved closing u tag before the closing p tag on line 57
-    20.changed line 60 tags to dt 
-    21.changed line 61 tags to dl  -->
