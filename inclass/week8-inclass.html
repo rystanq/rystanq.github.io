@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            animation-duration: 4s;
+            animation-name: slidein; /*can be any name but be descriptive*/
+        }
+
+        @keyframes slidein{
+            /*can use from and to if we dont wanna specify different times and just want it to be start and end*/
+            0%{
+                margin-left: 100%;
+                width: 300%;
+                color: aqua;
+            } 
+            
+            25%{
+                margin-left: 25%;
+                width: 175%;
+                color: maroon;
+            }
+            
+            100%{
+                margin-left: 0;
+                width: 100%;
+                color: olive;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Heading</h1>
+</body>
+</html>
