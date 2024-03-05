@@ -2,8 +2,8 @@ body{
     background-color: khaki;
 }
 #box1{
-    width: 25vw;
-    height: 20vh;
+    width: 25px;
+    height: 25px;
     background-color: indianred;
     transition: background-color 1s;
 }
