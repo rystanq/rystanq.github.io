@@ -1,0 +1,85 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #228b22;
+    font-family: fantasy;
+}
+
+
+nav{
+    height: 50vh;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height:20px;
+    background-color: beige;
+    position: sticky;
+    top: 0;
+    
+}
+nav a{
+   /** width:10vw;
+    text-align: center;
+    text-decoration: none;
+    color:black;**/
+    flex: 1;
+    background-color: darkolivegreen;
+    color: black;
+    border: 1px solid;
+    /**padding: 0.5rem;**/
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.5s ease-out;
+}
+
+a:hover,
+a:focus {
+  background-color: lightgreen;
+  color: #333;
+}
+
+img{
+    width: 250px;
+    height: 400px;
+}
+
+#black-ball{
+    background-color: black;
+    width: 20px;
+    height:20px;
+    border-radius: 50%;
+    position: relative;
+    animation-name: ball;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+}
+
+.gallery{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    padding-top: 30px;
+}
+
+@keyframes ball{
+        0% {
+            transform: translate(-250px, 0);
+          }
+        
+          25% {
+            transform: translate(-500px, 0);
+          }
+        
+          50% {
+            transform: translate(-500px, 250px);
+          }
+        
+          75% {
+            transform: translate(-250px, 250px);
+          }
+        
+          100% {
+            transform: translate(-250px, 0);
+          }
+}
