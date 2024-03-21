@@ -1,0 +1,31 @@
+body {
+    font-family: impact;
+    width: 350px;
+    background-color: pink;
+  }
+
+  label {
+    font-weight: bold;
+    border-radius: 25px;
+    background: gray;
+    padding: 20px;
+  }
+
+  div {
+    padding-bottom: 20px;
+  }
+
+  input[type="text"] {
+    padding: 5px;
+    width: 150px;
+  }
+
+  p {
+    width: 90%;
+    border-radius: 25px;
+    background: #d3836c;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
