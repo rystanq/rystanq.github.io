@@ -45,6 +45,7 @@ class Ball{
 
                 if (distance < this.size + ball.size){
                     // reverse velocities of ball
+                    ball.color = this.color = randomRGB();
                     [this.velx, ball.velx] = [ball.velx, this.velx];
                     [this.vely, ball.vely] = [ball.vely, this.vely];
                 }
