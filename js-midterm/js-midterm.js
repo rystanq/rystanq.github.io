@@ -6,7 +6,7 @@ const curVolume = document.querySelector("#curVolume");
 //const UpOne = document.querySelector(".upOne");
 //const DownOne = document.querySelector(".downOne");
 
-//let volume = 13;
+let volume = 13;
 
 //submitBtn.addEventListener("click", submitted);
 //radnomBtn.addEventListener("click", ranNumber);
@@ -56,6 +56,13 @@ function random(min, max) {
           ctx.fillStyle = this.color;
           ctx.arc(this.x, this.y, this.size, 0, 2 *Math.PI); // draws an arc and uses x and y as parameters for radius, 0 to 2Pi is a circle
           ctx.fill(); // fill what weve just drawn
+
+        // Display the pom value on the ball
+        ctx.fillStyle = "black"; // Set text color
+        ctx.font = "12px Arial"; // Set font size and family
+        ctx.textAlign = "center"; // Align text to center
+        ctx.textBaseline = "middle"; // Align text baseline to middle
+        ctx.fillText(this.pom, this.x, this.y); // Fill text at ball's position
       }
       collisionDetect(){ // for one percent extra credit make the balls bounce off eachother 
           for (const ball of balls){
@@ -94,19 +101,33 @@ function random(min, max) {
       }
 
       upone(){
-        if (this.pom === 1) {
-            volume++;
-        } else if (this.pom === 0) {
-            volume--;
-        }
+       volume = this.pom;
       }
 
-      collisonVol(){
-        for (const ball of balls){
-            ball.addEventListener("click", upOne)
+
+  }  
+  
+  canvas.addEventListener('click', function(event) {
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    for (const ball of balls) {
+        // Check if the mouse click is within the bounding box of the ball
+        if (mouseX >= ball.x - ball.size && mouseX <= ball.x + ball.size &&
+            mouseY >= ball.y - ball.size && mouseY <= ball.y + ball.size) {
+            // If the click is within the ball, call the upone() method
+            ball.upone();
+            break; // Exit the loop since we found the clicked ball
         }
-      }
-  }
+    }
+});
+
+function drawCount() {
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 24px Arial';
+    ctx.fillText(`Volume: ${volume}`, 500, 50); // Adjust position as needed
+ }
+ 
   
   const balls = [];
   
@@ -115,11 +136,11 @@ function random(min, max) {
       const ball = new Ball(
           random(0 + size, width - size), // ensures ball will spawn on the screen
           random(0 + size, height - size),
-          random(-10, 10), 
-          random(-10, 10),
+          random(0, 1), 
+          random(0, 1),
           randomRGB(),
           size,
-          random(0,1)// creates either a plus one or minus one ball to affect the volume
+          random(1,99)// creates either a plus one or minus one ball to affect the volume
       );
   
       balls.push(ball);
@@ -132,6 +153,7 @@ function random(min, max) {
       for (const ball of balls){
           ball.draw();
           ball.update();
+          drawCount();
           ball.collisionDetect();
       }
   
@@ -140,6 +162,13 @@ function random(min, max) {
       // could create a loop that creates a div, and in that for loop i could add the event listerner before iterating
       // up. the canvas aspect is messing me up, the work around could be tricky 
   }
+
+ // Run the loop at a fixed interval (e.g., every 16 milliseconds)
+    
+  
+
+
+
   
   loop();
 
