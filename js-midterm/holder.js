@@ -191,4 +191,11 @@ const throttledClickHandler = throttle(function(event) {
 
 canvas.addEventListener('click', throttledClickHandler);
 
-loop();
+ // Run the loop at a fixed interval (e.g., every 16 milliseconds)
+    
+  
+
+
+
+  
+  loop();
