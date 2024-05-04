@@ -1,44 +1,5 @@
 /*Current Volume and Button Styling*/
-#curVolume{
-    width: 150px;
-    height: 75px;
-    border: solid black;
-    margin-bottom: 15px;
-}
-
-
-
-
-/*Container Styling*/
-#container{
-    border: solid red;
-}
-
-/*Balls Styling*/
-.upOne{
-    display: block;
-    background: black;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
+html, body {
+    overflow: hidden;
     margin: 0;
-    display: flex; /* or inline-flex */
-    align-items: center; 
-    justify-content: center;
-}
-
-.downOne{
-    display: block;
-    background: black;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    margin: 0;
-    display: flex; /* or inline-flex */
-    align-items: center; 
-    justify-content: center;
-}
-
-.upOne p, .downOne p{
-    color: white;
 }
