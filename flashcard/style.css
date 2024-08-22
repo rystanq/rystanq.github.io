@@ -1,0 +1,67 @@
+* { margin:0; padding:0; }
+/*Home Page Styling*/
+body {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+  }
+    
+  header{
+    width: 100%;
+    height: 100px;
+    background-color: blue;
+    border: 2px solid black;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    top: 0; 
+  }
+  
+  #container{
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 15% 85%;
+  }
+  
+  #sidebar{
+    border: 2px solid black;
+    height: 100%;
+    margin-top: 10px;
+    margin-left: 5px;
+  }
+  
+  #content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid black;
+    margin-top: 10px;
+    margin-left: 75px;
+    width: 90%;
+    height: 100%;
+  }
+  
+  #searchbar{
+    border: 2px solid black;
+    width: 90%;
+    height: 150px;
+  }
+  
+  #recent{
+    border: 2px solid black;
+    width: 90%;
+    height: 150px;
+  }
+  
+  #newcard{
+    border: 2px solid black;
+    width: 90%;
+    height: 150px;
+  }
