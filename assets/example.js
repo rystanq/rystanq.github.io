@@ -4,8 +4,6 @@ const thumbBar = document.querySelector(".thumb-bar");
 const btn = document.querySelector("button");
 const overlay = document.querySelector(".overlay");
 
-function makeBig() {}
-
 /* Declaring the array of image filenames */
 const pics = [
   "/img/balloon-sq1.jpeg",
@@ -17,7 +15,8 @@ const pics = [
 /* Declaring the alternative text for each image file */
 const alts = ["pic1", "pic2", "pic3", "pic4", "pic5"];
 /* Looping through images */
-for (let i = 0; i < 5; i++) {
+
+for (let i = 0; i < pics.length; i++) {
   const newImage = document.createElement("img");
   newImage.setAttribute("src", pics[i]);
   newImage.setAttribute("alt", alts[i]);
