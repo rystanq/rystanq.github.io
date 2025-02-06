@@ -37,7 +37,7 @@ body {
   .card article img{
     max-height: 100%;
     float: right;
-  }
+  }  
 
   .card header, .card footer{
     height: 3em;/*made the height of both header and footer 3em, able to do this because of the comma. wont overwrite previous declarations */
