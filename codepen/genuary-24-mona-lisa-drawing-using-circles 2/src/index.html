@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Porco Rosso QR Display</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <style>
+      #container {
+        position: relative;
+        width: 640px;
+        height: 480px;
+      }
+      #video {
+        position: absolute;
+        border: 3px solid #fff;
+      }
+      #overlay {
+        position: absolute;
+        display: none;
+        pointer-events: none; /* Allows clicking through overlay */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <video id="video" width="640" height="480" autoplay></video>
+      <img id="overlay" src="" style="display: none; max-width: 300px" />
+    </div>
+
+    <script>
+      const video = document.getElementById("video");
+      const overlay = document.getElementById("overlay");
+      const porcoImageUrl =
+        "https://rhapsodistreviews.wordpress.com/wp-content/uploads/2014/04/porco-rosso.jpg";
+
+      // Start webcam
+      navigator.mediaDevices
+        .getUserMedia({ video: { facingMode: "environment" } })
+        .then((stream) => {
+          video.srcObject = stream;
+          video.play();
+          requestAnimationFrame(tick);
+        })
+        .catch((err) => {
+          console.error("Error accessing camera:", err);
+          alert("Please enable camera access to use this feature!");
+        });
+
+      function tick() {
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          const canvas = document.createElement("canvas");
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+          if (code) {
+            // Always show Porco Rosso image when ANY QR code is detected
+            overlay.src = porcoImageUrl;
+            overlay.style.display = "block";
+
+            // Position image over QR code
+            const location = code.location;
+            const qrSize = Math.max(
+              location.bottomRightCorner.x - location.topLeftCorner.x,
+              location.bottomRightCorner.y - location.topLeftCorner.y
+            );
+
+            overlay.style.width = `${qrSize * 2}px`; // Double the QR code size
+            overlay.style.left = `${location.topLeftCorner.x - qrSize / 2}px`;
+            overlay.style.top = `${location.topLeftCorner.y - qrSize / 2}px`;
+          } else {
+            overlay.style.display = "none";
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+
+      // Clean up
+      window.addEventListener("beforeunload", () => {
+        if (video.srcObject) {
+          video.srcObject.getTracks().forEach((track) => track.stop());
+        }
+      });
+    </script>
+  </body>
+</html>
