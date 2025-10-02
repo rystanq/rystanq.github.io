@@ -1,0 +1,39 @@
+.main-nav{
+    display:flex ;
+    justify-content: space-between;
+    padding: 1em;
+    background-color: hotpink;
+}
+
+.nav-menu{
+    display: flex;
+    gap: 2vw;
+}
+
+.nav-toggle{
+    display: none;
+    padding: .5em;
+}
+
+.nav-brand{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+@media (max-width: 768px){
+
+.nav-menu{
+    display: none;
+}
+
+
+
+
+
+}
