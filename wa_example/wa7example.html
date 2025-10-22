@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Container Queries: Layout & Clamp Demonstration (Fluid)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        /* Default Mobile Padding */
+        padding: 1rem;
+        background-color: #f3f4f6;
+        font-family: "Inter", sans-serif;
+        transition: padding 0.3s ease;
+      }
+
+      @media (min-width: 1024px) {
+        /* Desktop Padding */
+        body {
+          padding: 4rem;
+        }
+      }
+
+      /*
+        --------------------------------------------------
+        B. CONTAINER QUERY CONTEXT
+        --------------------------------------------------
+        The .module-wrapper is now FLUID, its width changes with the screen size
+        This element defines the container context
+        */
+      .module-wrapper {
+        margin: 0;
+        padding: 1rem;
+        border: 3px dashed #a855f7; /* Purple border to highlight the container */
+        border-radius: 12px;
+        background-color: #f5f3ff; /* Purple-50 */
+        container-type: inline-size;
+        min-height: 180px;
+      }
+
+      /* Base Component Styles (.card) */
+      .card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .icon {
+        font-size: 2rem;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+
+      /* *** KEY FEATURE: clamp() with Container Query Units (cqw) ***
+        The font size scales relative to the container width. 
+        The text will grow/shrink smoothly as the container width changes.
+        */
+      .card__title {
+        font-weight: 700;
+        /* Scales between 1rem (min) and 1.5rem (max), relative to 4% of container width */
+        font-size: clamp(1rem, 4cqw, 1.5rem);
+        line-height: 1.2;
+      }
+
+      .card__desc {
+        font-size: 0.875rem;
+        color: #4b5563;
+      }
+
+      /*
+        --------------------------------------------------
+        C. CONTAINER 1: Layout Adaptation (350px Breakpoint)
+        --------------------------------------------------
+        The .card--layout changes its structure based on its container's size.
+        */
+      .card--layout {
+        /* Default/Small Container State (Stacked) */
+        flex-direction: column;
+        text-align: center;
+        background-color: #fef2f2; /* Red-50 */
+        color: #b91c1c; /* Red-700 */
+      }
+      .card--layout .icon {
+        font-size: 3rem;
+      }
+
+      @container (min-width: 350px) {
+        /* Layout changes when container is 350px or wider */
+        .card--layout {
+          flex-direction: row; /* Rearrange items side-by-side */
+          justify-content: space-between;
+          text-align: left;
+          background-color: #eff6ff; /* Blue-50 */
+          color: #1d4ed8; /* Blue-700 */
+          padding: 1.5rem 2rem; /* Change padding based on container size */
+        }
+        .card--layout .icon {
+          font-size: 2rem;
+        }
+      }
+
+      /*
+        --------------------------------------------------
+        D. CONTAINER 2: Element Visibility & Spacing (480px Breakpoint)
+        --------------------------------------------------
+        The .card--visuals changes element visibility and internal spacing.
+        */
+      .card--visuals {
+        background-color: #fff;
+        color: #374151; /* Gray-700 */
+        gap: 0.5rem; /* Tight gap by default */
+      }
+
+      .card__cta {
+        display: none; /* Hide button in small state */
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        background-color: #10b981; /* Emerald-500 */
+        color: white;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      @container (min-width: 480px) {
+        /* Large State: Show button and increase spacing */
+        .card--visuals {
+          gap: 2rem; /* Wider gap for more space */
+          padding: 2rem; /* More padding when container is wide */
+        }
+        .card--visuals .card__cta {
+          display: block; /* Show button */
+        }
+      }
+    </style>
+  </head>
+  <body class="p-8 bg-gray-50">
+    <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">
+      Container Queries: Fluid Demo
+    </h1>
+    <p class="text-center text-gray-600 mb-8 max-w-4xl mx-auto">
+      **Resize your browser window** to see how the two components below change
+      their internal layout and typography based on the fluid width of their
+      parent container.
+    </p>
+
+    <!-- Main Grid: This uses a traditional media query breakpoint (md:grid-cols-2)
+         to make the columns fluid and trigger the container queries inside. -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- ============================================== -->
+      <!-- DEMO 1: Layout, Padding, and Color Adaptation (350px CQ) -->
+      <!-- ============================================== -->
+      <div class="col-span-1">
+        <h2 class="text-xl font-semibold mb-3 text-gray-700">
+          Demo 1: Layout & Color Change
+        </h2>
+        <p class="mb-3 text-sm text-gray-500">
+          **Below 350px:** Stacked layout (column), larger icon, red background,
+          small padding.
+          <br />
+          **Above 350px:** Horizontal layout (row), smaller icon, blue
+          background, larger padding.
+        </p>
+        <div class="module-wrapper">
+          <div class="card card--layout">
+            <span class="icon">🚀</span>
+            <div class="card__body">
+              <div class="card__title">Adaptive Component Layout</div>
+              <div class="card__desc">
+                The layout switches entirely to fit the available space.
+              </div>
+            </div>
+            <button
+              class="px-3 py-1 bg-gray-700 text-white rounded-md font-medium hover:bg-gray-800 transition"
+            >
+              Action
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- DEMO 2: Visibility, Spacing, and Clamp Font Scaling (480px CQ) -->
+      <!-- ============================================== -->
+      <div class="col-span-1">
+        <h2 class="text-xl font-semibold mb-3 text-gray-700">
+          Demo 2: Visibility & Clamp Font
+        </h2>
+        <p class="mb-3 text-sm text-gray-500">
+          **Below 480px:** CTA button hidden, tight spacing.
+          <br />
+          **Above 480px:** CTA button visible, wider spacing, and the title font
+          scales up to its maximum size using **`clamp(1rem, 4cqw, 1.5rem)`**.
+        </p>
+        <div class="module-wrapper">
+          <div class="card card--visuals">
+            <span class="icon text-3xl">💡</span>
+            <div class="card__body">
+              <div class="card__title">Contextual Feature Unlock</div>
+              <div class="card__desc">
+                Only show the complex button when there is ample room.
+              </div>
+            </div>
+            <button class="card__cta">View Full Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

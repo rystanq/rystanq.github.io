@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalStorage & Data Management</title>
+    <!-- Load Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8f8f8;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+      }
+      .container {
+        max-width: 500px;
+        width: 100%;
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+      .data-display {
+        min-height: 80px;
+        background-color: #ecfdf5; /* Green-50 */
+        border: 1px solid #10b981; /* Emerald-500 */
+        border-radius: 6px;
+      }
+      /* Simplified styles: removed .expired */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-2xl font-bold mb-4 text-gray-800">
+        User Preference and Data Management (Simple)
+      </h1>
+      <p class="text-sm text-gray-600 mb-6">
+        This demo shows the simplest way to **save**, **load**, and **clear** a
+        single text preference using `localStorage`. The data persists across
+        sessions until cleared.
+      </p>
+
+      <!-- Form for Data Input -->
+      <div class="mb-6 p-4 border rounded-lg bg-gray-50">
+        <label
+          for="username"
+          class="block text-sm font-medium text-gray-700 mb-2"
+          >Set Username Preference:</label
+        >
+        <input
+          type="text"
+          id="username"
+          class="w-full p-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+          placeholder="Enter your preferred username"
+        />
+        <button
+          onclick="savePreference()"
+          class="mt-3 w-full bg-emerald-600 text-white p-2 rounded-md font-semibold hover:bg-emerald-700 transition"
+        >
+          Save Preference
+        </button>
+      </div>
+
+      <!-- Data Display Area -->
+      <div class="data-display p-3 mb-6">
+        <p class="text-sm font-semibold mb-1 text-gray-800">
+          Loaded Preference:
+        </p>
+        <p id="loadedData" class="text-base text-gray-700 italic">
+          No preference loaded.
+        </p>
+      </div>
+
+      <!-- Controls for Management -->
+      <div class="flex justify-start items-center">
+        <button
+          onclick="clearPreference()"
+          class="bg-red-500 text-white p-2 rounded-md font-semibold text-sm hover:bg-red-600 transition"
+        >
+          Clear Stored Data
+        </button>
+        <!-- Removed expiry status display -->
+      </div>
+    </div>
+
+    <script>
+      // Key used in localStorage
+      const STORAGE_KEY = "user_preference_simple";
+
+      /**
+       * Saves the current input value as a simple string to localStorage.
+       */
+      function savePreference() {
+        const username = document.getElementById("username").value.trim();
+
+        if (username === "") {
+          document.getElementById("loadedData").textContent =
+            "Please enter a username to save.";
+          return;
+        }
+
+        // SIMPLICITY STEP 1: Store the raw string directly
+        try {
+          localStorage.setItem(STORAGE_KEY, username);
+          document.getElementById("username").value = ""; // Clear input after saving
+          loadPreference(); // Show new status
+        } catch (error) {
+          console.error("Error saving to localStorage:", error);
+          document.getElementById("loadedData").textContent =
+            "Error saving data.";
+        }
+      }
+
+      /**
+       * Loads the stored preference string from localStorage.
+       */
+      function loadPreference() {
+        // SIMPLICITY STEP 2: Retrieve the raw string
+        const storedUsername = localStorage.getItem(STORAGE_KEY);
+        const dataDisplay = document.getElementById("loadedData");
+
+        if (storedUsername) {
+          // Data found
+          dataDisplay.textContent = `User: ${storedUsername}`;
+        } else {
+          // No data found
+          dataDisplay.textContent = "No preference loaded.";
+        }
+        // Removed expiration checks, status updates, and periodic timeouts
+      }
+
+      /**
+       * Provides clear user control to remove all stored data.
+       */
+      function clearPreference() {
+        // SIMPLICITY STEP 3: Remove the item directly
+        localStorage.removeItem(STORAGE_KEY);
+        loadPreference();
+      }
+
+      // Load data immediately on page load
+      window.onload = loadPreference;
+    </script>
+  </body>
+</html>
