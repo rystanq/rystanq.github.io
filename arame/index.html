@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A-Frame AR Cube on Hiro Marker</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <!-- Load A-Frame Core Library -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <!-- Load AR.js extension for marker-based AR (using the camera stream) -->
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js@3.4.4/aframe/build/aframe-ar.js"></script>
+    <style>
+      /* Ensure the body and HTML cover the full viewport */
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      .arjs-loader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .arjs-loader div {
+        text-align: center;
+        font-size: 1.25rem;
+        color: white;
+        padding: 1rem;
+        border: 2px solid white;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body style="margin: 0px; overflow: hidden">
+    <!-- Loading screen while AR.js initializes the camera -->
+    <div class="arjs-loader">
+      <div>
+        Initializing AR Camera... Please grant permissions.
+        <br />
+        Make sure to use a local server (like VS Code Live Server).
+      </div>
+    </div>
+
+    <!-- 
+        The A-Frame scene setup for AR:
+        - embedded: Ensures the scene fits within the browser window.
+        - ar-scene: Initializes the AR functionality.
+        - vr-mode-ui: Controls the visibility of the VR/AR button.
+    -->
+    <a-scene
+      embedded
+      ar-scene="sourceType: webcam;"
+      vr-mode-ui="enabled: false"
+      loading-screen="enabled: false"
+    >
+      <!-- 
+            1. The Marker Anchor:
+            - a-marker: This entity is the anchor for your digital content.
+            - preset="hiro": Tells the system to look for the famous 'Hiro' pattern.
+            - The cube will only appear when this marker is visible to the camera.
+        -->
+      <a-marker preset="hiro">
+        <!-- 
+                2. The Cube Entity:
+                - position: Positioned 1 unit up from the marker's center (0 0 0).
+                - rotation: Rotated slightly for a better 3D effect.
+                - color: A striking orange/gold color.
+                - animation: Adds a simple rotation animation for engagement.
+            -->
+        <a-box
+          position="0 0.5 0"
+          rotation="0 45 0"
+          color="#FF8C00"
+          scale="0.8 0.8 0.8"
+          shadow
+        >
+          <a-text
+            value="CUBE"
+            align="center"
+            position="0 0.5 0"
+            color="#FFFFFF"
+            scale="0.5 0.5 0.5"
+          ></a-text>
+
+          <!-- Animation component to make the cube spin -->
+          <a-animation
+            attribute="rotation"
+            dur="3000"
+            from="0 0 0"
+            to="0 360 0"
+            repeat="indefinite"
+            easing="linear"
+          >
+          </a-animation>
+        </a-box>
+      </a-marker>
+
+      <!-- 3. The Camera Entity: 
+            This is required by A-Frame/AR.js to represent the user's viewpoint.
+        -->
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
